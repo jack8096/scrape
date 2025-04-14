@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #131921;
+    color: white;
+    padding: 10px 20px;
+}
+
+.border {
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* Search Bar */
+.nav-search {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.search-input {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+}
+
+/* Hero Section */
+.hero-section img {
+    width: 100%;
+    height: auto;
+}
+
+/* Footer */
+footer {
+    background-color: #232F3E;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.foot-pannel2 {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.foot-pannel2 ul {
+    list-style: none;
+}
+
+.foot-pannel2 ul p {
+    font-weight: bold;
+}
