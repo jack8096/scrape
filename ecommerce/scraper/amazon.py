@@ -3,7 +3,7 @@ from typing import Union
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
-from util import Product, df
+from .util import Product, df
 
 
 class AmazonScraper:

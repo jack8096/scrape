@@ -2,7 +2,7 @@ from typing import Optional
 from playwright.sync_api import sync_playwright
 import pandas as pd
 from bs4 import BeautifulSoup
-from util import Product
+from .util import Product
 
 
 class MyntraScraper:
