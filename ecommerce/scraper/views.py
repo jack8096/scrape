@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import pandas as pd
-from .combine import combine_results
 from .amazon import AmazonScraper
 from .flipkart import FlipkartScraper
 from .myntra import MyntraScraper
