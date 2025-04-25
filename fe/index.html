@@ -1,0 +1,421 @@
+<!DOTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pastel Price Comparison</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fef6f9;
+      color: #333;
+    }
+
+    .or-separator {
+      margin: 1rem 0;
+      font-weight: bold;
+      color: #888;
+    }
+
+    .pannel {
+      height: 40px;
+      background-color: #222f3d;
+      display: flex;
+      color: white;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    .pannel-ops p {
+      display: inline;
+      margin-left: 15px;
+    }
+
+    .pannel-ops {
+      width: 90%;
+      font-size: 0.85rem;
+    }
+
+    .hero-section {
+      background-image: url("hero_img.jpg");
+      background-size: cover;
+      height: 300px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    header {
+      background-color: #d0e8f2;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .option{
+      color: #34495e ;
+      font-weight: 20;
+      align-items: center;
+      justify-content: space-evenly;
+      font-size: 20px;
+      display: flex;
+      padding-top: 30px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #34495e;
+    }
+
+    .search-box {
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+      background-color: #e4f1f6;
+    }
+
+    .search-box input {
+      padding: 0.8rem;
+      width: 300px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .search-box button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #fbc4ab;
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .search-box button:hover {
+      background-color: #ffe5d9;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background-color: #fcd5ce;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      transition: 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #2c3e50;
+    }
+
+    .card p {
+      margin: 0.5rem 0;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      text-decoration: none;
+      color: #2980b9;
+    }
+
+    .shop-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      background-color: #e2e7e2;
+    }
+
+    .box {
+      height: 420px;
+      width: 23%;
+      background-color: white;
+      padding: 20px 0 15px;
+      margin-top: 15px;
+    }
+
+    .box-img {
+      height: 320px;
+      background-size: cover;
+      margin: 1rem 0;
+    }
+
+    .box-content {
+      margin: 0 1rem 1rem 1rem;
+    }
+
+    .box-content p {
+      color: #007185;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #cddafd;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      margin: 10vh auto;
+      text-align: center;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.8rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #fbc4ab;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #333;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .login-container button:hover {
+      background-color: #ffe5d9;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-section" class="login-container">
+    <h1>Welcome to PriceCompare 🌸</h1>
+    <div id="error" class="error"></div>
+    <div id="login-form">
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <button onclick="login()">Login</button>
+    </div>
+    <div class="or-separator">or</div>
+    <div id="signup-form" class="hidden">
+      <input type="email" id="signup-email" placeholder="Enter your email" required>
+      <input type="password" id="signup-password" placeholder="Enter your password" required>
+      <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+      <button onclick="signup()">Sign Up</button>
+    </div>
+    <p style="margin-top: 1rem;">
+      <a href="#" onclick="toggleForm()">Switch to <span id="toggle-text">Sign Up</span></a>
+    </p>
+  </div>
+
+  <div id="home-section" class="hidden">
+    <header>
+      <h1>PriceCompare 🌸</h1>
+      <div class="option">
+        <a href="#" onclick="showSection(event, 'home-section')"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#" onclick="showSection(event, 'cart-section')">Cart</a>
+        <a href="#" onclick="showSection(event, 'about-section')">About us</a>
+        <a href="#" onclick="showSection(event, 'vlog-section')">Vlog</a>
+        <a href="#" onclick="signOut()">Sign out</a>
+      </div>
+    </header>
+    <div class="pannel">
+      <div class="all-pannel">
+        <i class="fa-solid fa-bars"></i> All
+      </div>
+      <div class="pannel-ops">
+        <p>Fresh</p><p>MX Player</p><p>Sell</p><p>Best Sellers</p><p>Today's Deals</p>
+        <p>Mobiles</p><p>Customer Service</p><p>Prime</p><p>Electronics</p>
+        <p>Home & Kitchen</p><p>Amazon Pay</p><p>New Releases</p><p>Fashion</p>
+        <p>Car & Motorbike</p><p>Computers</p><p>Books</p>
+      </div>
+    </div>
+    <div class="hero-section"></div>
+    <section class="search-box">
+      <input type="text" id="searchInput" placeholder="Search a product...">
+      <button onclick="searchProduct()">Search</button>
+    </section>
+    <section class="results" id="results"></section>
+    <div class="shop-section">
+      <div class="box box_1">
+        <div class="box-content">
+          <h2>Up to 60% off | Styles for women</h2>
+          <div class="box-img" style="background-image: url('box_2_img.png');"></div>
+          <p>Explore all</p>
+        </div>
+      </div>
+      <div class="box box_2">
+        <div class="box-content">
+          <h2>Starting ₹199 |Brands & more</h2>
+          <div class="box-img" style="background-image: url('box_3_img.png');"></div>
+          <p>Explore all</p>
+        </div>
+      </div>
+      <div class="box box_3">
+        <div class="box-content">
+          <h2>Appliances for your home | Up to 55% off</h2>
+          <div class="box-img" style="background-image: url('box_4_img.png');"></div>
+          <p>Explore all</p>
+        </div>
+      </div>
+    </div>
+    <footer>&copy; 2025 PriceCompare | Made with 🩷 pastel colors</footer>
+  </div>
+
+  <div id="cart-section" class="hidden">
+    <header><h1>Cart 🛒</h1></header>
+    <p style="text-align:center; padding: 2rem;">Add to Cart items will appear here. </p>
+  </div>
+
+  <div id="about-section" class="hidden">
+    <header><h1>About Us 👩‍💻</h1></header>
+    <p style="padding: 2rem;">Welcome to PriceCompare – your go-to destination for smart shopping!
+      We are a passionate team dedicated to helping you find the best deals online.
+      Our platform compares prices from top sites like Amazon, Flipkart, and more.
+      With a pastel-themed, user-friendly design, we make comparison shopping easy.
+      We believe in saving your time, money, and effort.
+      Our goal is to bring transparency and simplicity to your buying journey.
+      At PriceCompare, you can trust the prices and enjoy seamless navigation.
+      We continuously update our data to give you the most accurate comparisons.
+      Whether it’s electronics, fashion, or home goods – we’ve got it all covered.
+      Thank you for choosing PriceCompare – where pastel meets practical!</p>
+  </div>
+
+  <div id="vlog-section" class="hidden">
+    <header><h1>Vlog 🎥</h1></header>
+    <p style="padding: 2rem;">In our Vlog section, we bring you the latest reviews and insights on the best products in the market.
+       From in-depth smartphone reviews to guides on the top headphones for 2025, our vlogs are designed to help you make informed purchasing decisions. 
+       We also share tips on finding the best deals online, ensuring you get the most value for your money. With engaging video content, we highlight key features, performance, and real-world usage of popular products.
+       Our goal is to keep you updated on the latest trends and innovations in the tech and lifestyle space. Stay tuned as we regularly update our vlog section with fresh content.
+        Whether you're a tech enthusiast or just looking for shopping inspiration, our vlogs have something for everyone.
+         We ensure a seamless experience for our users by curating content that is both entertaining and informative.
+         Join us as we explore the latest gadgets and shopping hacks. Watch our vlogs to make smarter, better decisions on your next purchase!</p>
+  </div>
+
+  <script>
+    function toggleForm() {
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+      const toggleText = document.getElementById("toggle-text");
+      loginForm.classList.toggle("hidden");
+      signupForm.classList.toggle("hidden");
+      toggleText.textContent = loginForm.classList.contains("hidden") ? "Login" : "Sign Up";
+    }
+
+    function signup() {
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value.trim();
+      const confirm = document.getElementById('signup-confirm').value.trim();
+      const errorDiv = document.getElementById('error');
+      errorDiv.textContent = "";
+      if (!email || !password || !confirm) {
+        errorDiv.textContent = "Please fill all fields.";
+        return;
+      }
+      if (password !== confirm) {
+        errorDiv.textContent = "Passwords do not match.";
+        return;
+      }
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+      alert("Sign-up successful! Please login.");
+      toggleForm();
+    }
+
+    function login() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorDiv = document.getElementById("error");
+      errorDiv.textContent = "";
+      const storedEmail = localStorage.getItem("email");
+      const storedPassword = localStorage.getItem("password");
+      if ((email === 'neha' && password === '2006') || (email === storedEmail && password === storedPassword)) {
+        document.getElementById("login-section").classList.add("hidden");
+        document.getElementById("home-section").classList.remove("hidden");
+      } else {
+        errorDiv.textContent = "Invalid email or password.";
+      }
+    }
+
+    function showSection(event, sectionId) {
+      event.preventDefault();
+      const sections = ['home-section', 'cart-section', 'about-section', 'vlog-section'];
+      sections.forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    function signOut() {
+      location.reload();
+    }
+
+function searchProduct() {
+  const query = document.getElementById('searchInput').value.trim();
+  const results = document.getElementById('results');
+  results.innerHTML = ""; // Clear previous results
+
+  if (!query) {
+    alert("Please enter a product name.");
+    return;
+  }
+
+  // Make an API request to fetch products based on the search query
+  fetch(`http://localhost:8000/api/search/?q=${query}`)
+    .then(response => response.json())  // Convert response to JSON
+    .then(data => {
+      // If data exists and contains products, display them
+      if (data && Array.isArray(data) && data.length > 0) {
+        data.forEach(product => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <h2>${product.title}</h2>
+            <p><strong>${product.small_title || ""}</strong></p>
+            <img src="${product.image}" alt="${product.title}" style="max-width: 100%; height: auto; border-radius: 8px;">
+            <p>Rating: ${product.rating}</p>
+            <p>Price: <span style="color:#d62828;">₹${product.price}</span></p>
+            <a href="${product.url}" target="_blank" rel="noopener noreferrer">View Product</a>
+          `;
+          results.appendChild(card);
+        });
+      } else {
+        results.innerHTML = "<p>No products found.</p>";
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      results.innerHTML = "<p>Error fetching data. Please try again later.</p>";
+    });
+}
+  </script>
+</body>
+</html>
