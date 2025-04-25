@@ -15,7 +15,21 @@ class AmazonScraper:
         product_list = []
         url = self.base_url + self.search.replace(" ", "+")
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            "Host": "www.amazon.in",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-GB,en;q=0.5",
+            "Accept-Encoding": "gzip, deflate, br, zstd",
+            "DNT": "1",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "cross-site",
+            "Priority": "u=0, i",
+            "Pragma": "no-cache",
+            "Cache-Control": "no-cache",
+            "TE": "trailers",
         }
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.content, "html.parser")
@@ -23,6 +37,10 @@ class AmazonScraper:
 
         rating_pattern = re.compile(r"[0-9.]+")
         for item in items:
+            url = None
+            urlValue = item.find('a', class_='a-link-normal s-no-outline')
+            if urlValue != None:
+                url = urlValue.get('href')
             title = item.find("h2")
             small_title = item.find("span", class_="a-text-normal")
             price = item.find("span", class_="a-price-whole")
@@ -34,6 +52,7 @@ class AmazonScraper:
             rating_value = rating_pattern.search(rating.get_text()) if rating else None
 
             product = Product(
+                url=f'https://www.amazon.in{url}',
                 title=title.get_text(strip=True) if title else None,
                 small_title=small_title.get_text(strip=True) if small_title else None,
                 price=price.get_text(strip=True) if price else None,

@@ -3,6 +3,7 @@ from playwright.sync_api import sync_playwright
 import pandas as pd
 from bs4 import BeautifulSoup
 from .util import Product
+# from util import Product
 
 
 class MyntraScraper:
@@ -26,6 +27,10 @@ class MyntraScraper:
         items = soup.find_all("li", class_="product-base")
 
         for item in items:
+            url = None
+            urlValue = item.find('a')
+            if urlValue != None:
+                url = urlValue.get('href')
             title = item.find("h3", class_="product-brand")
             small_title = item.find("h4", class_="product-product")
             price = item.find("div", class_="product-price")
@@ -35,6 +40,7 @@ class MyntraScraper:
             )
 
             product = Product(
+                url=f'https://www.myntra.com/{url}',
                 title=title.get_text(strip=True) if title else None,
                 small_title=small_title.get_text(strip=True) if small_title else None,
                 price=price.get_text(strip=True) if price else None,

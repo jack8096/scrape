@@ -5,6 +5,7 @@ import pandas as pd
 import requests
 
 from .util import Product
+# from util import Product
 
 
 class FlipkartScraper:
@@ -23,12 +24,17 @@ class FlipkartScraper:
 
         items = soup.findAll("div", attrs={"data-id": True})
         for item in items:
+            url = None
+            urlValue = item.find('a', class_='rPDeLR')
+            if urlValue != None:
+                url = urlValue.get('href')
             title = item.find("div", class_="syl9yP")
             small_title = item.find("a", class_="WKTcLC")
             price = item.find("div", class_="Nx9bqj")
             image = item.find("img", class_="_53J4C-")
 
             product = Product(
+                url=f'https://www.flipkart.com{url}',
                 title=title.get_text() if title else None,
                 small_title=small_title.get_text() if small_title else None,
                 price=price.get_text() if price else None,

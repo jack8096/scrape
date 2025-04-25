@@ -6,12 +6,14 @@ import pandas as pd
 class Product:
     def __init__(
         self,
+        url: str,
         title: Optional[str],
         small_title: Optional[str],
         image: Optional[str],
         rating: Optional[str],
         price: Optional[str],
     ) -> None:
+        self.url:str = url
         self.title: Optional[str] = title
         self.small_title: Optional[str] = small_title
         self.image: Optional[str] = image
@@ -20,6 +22,7 @@ class Product:
 
 
 data: dict[str, list[Union[str, None]]] = {
+    'url': [],
     "title": [],
     "small_title": [],
     "image": [],
